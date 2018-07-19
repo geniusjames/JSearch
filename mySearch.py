@@ -5,7 +5,8 @@ from time import sleep
 import os
 
 root = Tk()
-location='/root'
+location='/root' # for users of linux distro edit it to fit ur os and home name
+#TODO: automatically detect os of host 
 global save
 tries=False
 save={}
@@ -102,12 +103,7 @@ class JSearch():
         
         global tries
                
-        #while tries==False:
-        #    for i in range(lst):
-        #      if (os.listdir(location)[i].find(toSearch)!=-1):
-        #            print os.listdir(location)[i]
-        #    tries=True 
-         
+     
         if(currentFile.find('.wine')!=-1):
             print 'found', loc
             return
@@ -117,15 +113,14 @@ class JSearch():
             
             self.results.insert(INSERT, str(s))
             self.results.update
-            
-            print ('found', s)
+           
             
     def main(self):
         
         try:
             initial_list=os.listdir(location)
       
-            print (initial_list)
+            
         except OSError:
             print ("error")
         print ('.......................')
