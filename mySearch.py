@@ -113,15 +113,14 @@ class JSearch():
             
             self.results.insert(INSERT, str(s))
             self.results.update
-            
-            print ('found', s)
+           
             
     def main(self):
         
         try:
             initial_list=os.listdir(location)
       
-            print (initial_list)
+            
         except OSError:
             print ("error")
         print ('.......................')
