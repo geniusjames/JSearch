@@ -5,7 +5,8 @@ from time import sleep
 import os
 
 root = Tk()
-location='/root'
+location='/root' # for users of linux distro edit it to fit ur os and home name
+#TODO: automatically detect os of host 
 global save
 tries=False
 save={}
