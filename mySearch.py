@@ -1,15 +1,18 @@
-from tkinter import *
+from Tkinter import *
 from ScrolledText import ScrolledText
-
+from os.path import expanduser
 
 import os
 
 root = Tk()
-location='/root' # for users of linux distro edit it to fit ur os and home name
+homedir=expanduser('~')
+location=homedir # for users of linux distro edit it to fit ur os and home name
 #TODO: automatically detect os of host 
 global save
 tries=False
 save={}
+count=0
+total=0
 class JSearch():
     
     def __init__(self, master):
@@ -23,8 +26,11 @@ class JSearch():
         
 
         self.label2=Label(master, text='type text to search')
-        self.label2.grid(row=0)
+        self.label2.grid(sticky=E)
         
+        self.countlabel=Label(master, text="")
+        self.countlabel.grid(row=3)
+
         self.entry=Entry(master,bd=5)
         self.entry.grid(row=0, column=1) #search entry
         self.label=Label(master, text=self.var.get(), width=40, height=5)
@@ -46,10 +52,12 @@ class JSearch():
         root.update_idletasks()
     #scans the system
     def systemScan(self,iniList, location):
+        global count,total
         self.location=location
         self.iniList=iniList
         length= len(iniList)
         searchText=self.entry.get()
+        
         if (self.entry.get()==''):
             self.var.set('you must enter a text to search for')
             self.label.configure(text=self.var.get())            
@@ -63,8 +71,8 @@ class JSearch():
        
         
         for i in range(length):
-            
-            if (iniList[i].find('.wine')!=-1):
+            total +=1
+            if (iniList[i].find('.wine')!=-1): #.wine folder produces an infinite loop 
                 continue
             try:
                 new_list = os.listdir(location +'/' + iniList[i])
@@ -87,6 +95,7 @@ class JSearch():
             except:
                 
                 pass
+            
         self.var.set('finished....')
         self.label.configure(text=self.var.get())
         self.label.update()
@@ -101,7 +110,7 @@ class JSearch():
         s=''
         lst=len(os.listdir(location))
         
-        global tries
+        global tries, count
                
      
         if(currentFile.find('.wine')!=-1):
@@ -113,10 +122,10 @@ class JSearch():
             
             self.results.insert(INSERT, str(s))
             self.results.update
-           
+            count +=1
             
     def main(self):
-        
+        global count, total
         try:
             initial_list=os.listdir(location)
       
@@ -125,7 +134,9 @@ class JSearch():
             print ("error")
         print ('.......................')
         k = self.systemScan(initial_list, location)
-        
+        self.countlabel.configure(text=str(total)+' Files searched '+str(count) +' Files found')
+        self.countlabel.update()
+
     def get_input(self):
         searchStr =input()
         return str(searchStr)
