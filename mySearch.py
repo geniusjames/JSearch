@@ -103,12 +103,7 @@ class JSearch():
         
         global tries
                
-        #while tries==False:
-        #    for i in range(lst):
-        #      if (os.listdir(location)[i].find(toSearch)!=-1):
-        #            print os.listdir(location)[i]
-        #    tries=True 
-         
+     
         if(currentFile.find('.wine')!=-1):
             print 'found', loc
             return
