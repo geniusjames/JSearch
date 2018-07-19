@@ -1,6 +1,6 @@
 from tkinter import *
 from ScrolledText import ScrolledText
-from time import sleep
+
 
 import os
 
